@@ -439,11 +439,11 @@ def min_diam_sol(l_graph, l_task, hops):
 if __name__ == "__main__":
     import networkx as nx
     import Utilities
-    from dblpds import DBLPData
+    # from dblpds import DBLPData
     import random
     import matplotlib.pyplot as plt
 
-    dblp_dt = DBLPData("2015")
+    # dblp_dt = DBLPData("2015")
     graph = nx.read_gml("../dblp-2015/db.gml")
     # task = dblp_dt.get_task_from_title_graph(graph,
     # "Novel Approaches in Query Processing for Moving Object Trajectories")
