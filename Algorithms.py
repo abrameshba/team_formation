@@ -446,9 +446,6 @@ if __name__ == "__main__":
     # dblp_dt = DBLPData("2015")
     graph = nx.read_gml("../dblp-2015/db.gml")
     # task = dblp_dt.get_task_from_title_graph(graph,
-    # "Novel Approaches in Query Processing for Moving Object Trajectories")
-    # task = ["2387", "997", "2633", "792", "481", "2446", "1179", "67", "748", "2222"]   # popular
-    # task = ["2628", "1873", "2473", "2622", "2023", "793", "67", "2574", "2645", "1007"]    # rarest
     task = ["1240", "1177", "245", "681"]
     team = tfs(graph, task,1,1)
     tg = team.get_team_graph(graph)

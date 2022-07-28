@@ -184,13 +184,12 @@ def get_cmnt_skills_from_pub(publication) -> list:
     return sorted(lst)
 
 
-def get_dblp_skills_from_pub(publication) -> list:
+def get_skills_from_string(publication) -> list:
     """
-    returns non trivial words of publication as skills packed in set
-    used to get skills of an expert
-    non trivial keywords that appear at least twice in his/her publications are skills
-    :param publication:
-    :return:
+    remove stopwords from publication, remove symbols
+    make a list of non trivial words that appear at least twice in publication
+    :param publication:publication is a string
+    :return: list of words
     """
     from nltk import word_tokenize
     import re
