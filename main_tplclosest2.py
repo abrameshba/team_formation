@@ -47,7 +47,7 @@ def main_run(algori):
         # skills_name_id_dict = dict()
         # with  open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_titles.txt") as file:
         runs = 10
-        tot_tasks = 10
+        tot_tasks = 170
         open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0_" + algori + "_results2.txt", "w").close()
         heading = results.get_heading()
         open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0_" + algori + "_results2.txt", "a").write(

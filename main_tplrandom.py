@@ -15,21 +15,22 @@ def main_run(algori):
     year = "2015"
     # for network in ["db"]:
     results = main_rarestfirst.Results()
-    networks = ["dblp"]
+    networks = ["vldb", "sigmod", "icde", "icdt", "edbt", "pods", "www", "kdd", "sdm", "pkdd", "icdm", "icml",
+                "ecml", "colt", "uai", "soda", "focs", "stoc", "stacs", "db", "dm", "ai", "th", "dblp"]
     for network in tqdm(networks):
         print(network)
-        graph = nx.read_gml("../dblp-" + year + "/" + network + ".gml")
+        graph = nx.read_gml("/home/ramesh/dblp/dblp_" + year + "/" + network + ".gml")
         # skills_name_id_dict = dict()
-        # with  open("../dblp-" + year + "/" + network + "-titles.txt") as file:
+        # with  open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_titles.txt") as file:
         runs = 10
-        tot_tasks = 170
-        open("../dblp-" + year + "/" + network + "-" + str(tot_tasks) + "-0-" + algori + "-results.txt", "w").close()
+        tot_tasks = 10
+        open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0_" + algori + "_results.txt", "w").close()
         heading = results.get_heading()
-        open("../dblp-" + year + "/" + network + "-" + str(tot_tasks) + "-0-" + algori + "-results.txt", "a").write(
+        open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0_" + algori + "_results.txt", "a").write(
             heading + "\n")
-        open("../dblp-" + year + "/" + network + "-" + str(tot_tasks) + "-0-" + algori + "-teams.txt", "w").close()
-        with open("../dblp-" + year + "/" + network + "-" + str(tot_tasks) + "-0.txt", "r") as file:
-            n_lines = Utilities.get_num_lines("../dblp-" + year + "/" + network + "-" + str(tot_tasks) + "-0.txt")
+        open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0_" + algori + "_teams.txt", "w").close()
+        with open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0.txt", "r") as file:
+            n_lines = Utilities.get_num_lines("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0.txt")
             crun = 0  # cu
             for line in tqdm(file, total=n_lines):
                 crun += 1
@@ -56,8 +57,8 @@ def main_run(algori):
                 # results.simpson_team_diversity += team.simpson_diversity(graph, True)
                 # results.gini_simpson_task_diversity += team.gini_simpson_diversity(graph, False)  # task diversity
                 # results.gini_simpson_team_diversity += team.gini_simpson_diversity(graph, True)
-                open("../dblp-" + year + "/" + network + "-" + str(tot_tasks) + "-0-" + algori +
-                     "-teams.txt", "a").write(",".join(sorted(team.experts)) + "\n")
+                open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0_" + algori +
+                     "_teams.txt", "a").write(",".join(sorted(team.experts)) + "\n")
                 if crun % runs == 0:
                     record += str(results.task_size / runs)
                     record += "\t" + str(round(results.tot_time / runs, 3))
@@ -75,7 +76,7 @@ def main_run(algori):
                     # record += "\t" + str(results.simpson_team_diversity / runs)
                     # record += "\t" + str(results.gini_simpson_task_diversity / runs)  # task diversity
                     # record += "\t" + str(results.gini_simpson_team_diversity / runs)
-                    open("../dblp-" + year + "/" + network + "-" + str(tot_tasks) + "-0-" + algori + "-results.txt",
+                    open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0_" + algori + "_results.txt",
                          "a").write(
                         record + "\n")
                     results.clean_it()
