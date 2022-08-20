@@ -6,23 +6,24 @@
 from tqdm import tqdm
 
 import Algorithms
-import Utilities
 import main_rarestfirst
+import Utilities
 
 
-def main_run(algori, mhops):
+def main_run(algori):
     import networkx as nx
     year = "2015"
     # for network in ["db"]:
     results = main_rarestfirst.Results()
-    networks = ["db", "dm", "ai", "th", "dblp"]
+    networks = ["vldb", "sigmod", "icde", "icdt", "edbt", "pods", "www", "kdd", "sdm", "pkdd", "icdm", "icml",
+                "ecml", "colt", "uai", "soda", "focs", "stoc", "stacs", "db", "dm", "ai", "th", "dblp"]
     for network in tqdm(networks):
         print(network)
         graph = nx.read_gml("/home/ramesh/dblp/dblp_" + year + "/" + network + ".gml")
         # skills_name_id_dict = dict()
         # with  open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_titles.txt") as file:
         runs = 10
-        tot_tasks = 10
+        tot_tasks = 170
         open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0_" + algori + "_results.txt", "w").close()
         heading = results.get_heading()
         open("/home/ramesh/dblp/dblp_" + year + "/" + network + "_" + str(tot_tasks) + "_0_" + algori + "_results.txt", "a").write(
@@ -38,7 +39,7 @@ def main_run(algori, mhops):
                 # print(task)
                 record = ""
                 start_time = time.time()
-                team = Algorithms.min_diam_sol(graph, task, mhops)
+                team = Algorithms.tfr(graph, task, 2, 2)
                 end_time = time.time()
                 tg = team.get_team_graph(graph)
                 # show_graph(tg)
@@ -50,7 +51,7 @@ def main_run(algori, mhops):
                 results.leader_distance += team.leader_distance(tg)
                 results.leader_skill_distance += team.leader_skill_distance(tg, task)
                 results.sum_distance += team.sum_distance(tg, task)
-                # results.shannon_task_diversity += team.shannon_task_diversity(graph)
+                results.random_experts += len(team.random_experts)
                 # results.shannon_team_diversity += team.shannon_team_diversity(graph)
                 # results.simpson_task_diversity += team.simpson_diversity(graph, False)  # task diversity
                 # results.simpson_team_diversity += team.simpson_diversity(graph, True)
@@ -67,7 +68,7 @@ def main_run(algori, mhops):
                     record += "\t" + str(results.leader_distance / runs)
                     record += "\t" + str(results.leader_skill_distance / runs)
                     record += "\t" + str(results.sum_distance / runs)
-                    # record += "\t" + str(results.shannon_task_diversity / runs)
+                    record += "\t" + str(results.random_experts / runs)
                     # record += "\t" + str(results.shannon_team_diversity / runs)
                     # # record += "\t" + str(team.simpson_task_density(graph))
                     # # record += "\t" + str(team.simpson_team_density(graph))
@@ -95,7 +96,7 @@ if __name__ == '__main__':
     import time
 
     begin_time = time.time()
-    main_run("mds", 5)
+    main_run("tfr")
     # processes = []
     # for alg in ["rfs"]:
     #     p = multiprocessing.Process(target=multiprocessing_func, args=(alg,))
